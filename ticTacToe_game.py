@@ -12,63 +12,31 @@ Visual Representation: Implement a function to print the current state of the bo
 Player Setup: Assign specific markers (e.g., 'X' and 'O') to two players and track whose turn it is. 
 '''
 
-# Create an array with x value of size n
-# x: value  ||  _: accumulator  ||  n: number
-# [x for _ in range(n)
-def createCustomArr(x, n):
-    return [x for _ in range(n)]
+# IMPORTS
+import os
+from utilities.drawFn import drawBoard
+from utilities.arrFn import createCustomArr
+
+def cleanScreen():
+  os.system('cls' if os.name == 'nt' else 'clear')
 
 
-'''
-DrawOnTemplate recieves an arr part of the
-grid, that would be an array of size 3
-, separation by default is true. 
-
-Expected result:
-  0 | 0 | 0 '
-----+---+----
-'''
-def drawOnTemplate(arr, separation = True):
-    # validation to check if arr meet the requirements
-    # by an array of size 3
-    if (len(arr) != 3): return False
+class Board:
+  def __init__(self):
+    # Grid is an array of size 3 where each element is 
+    # an array of size 3 fill with 0's
+    grid = createCustomArr(createCustomArr(0 , 3), 3)
+    self.grid = grid
+  
+  def drawOnScreen(self):
+    drawBoard(self.grid)
+  
+  def updateGrid(self, position, newValue):
+    self.grid[position[0]][position[1]] = newValue
     
-    part = ''
-    separator = '----+----+----'
+    # cleanScreen()
+    self.drawOnScreen()
 
-    for i in range(len(arr)):
-        end = ''
-        if (i < len(arr) - 1): end = '|'
-        part += f' {arr[i]}  {end}'
-
-    print(part)
-    if (separation): print(separator)
-
-    return True
-
-# Draw the board
-'''
-    |   |   
-----+---+----
-    |   |   
-----+---+----
-    |   |   
-'''
-# arr: expected recieve a grid of 3x3
-def drawBoard(arr):
-    # Validation for check if arr is 
-    # a grid 3x3
-    if (len(arr) != 3): return False
-    
-    for i in range(len(arr)):
-        if len(arr[i]) != 3: return False
-        
-        separation = False
-        if (i < len(arr)-1): separation = True
-
-        drawOnTemplate(arr[i], separation)
-
-# Grid is an array of size 3 where each element is 
-# an array of size 3 fill with 0's
-grid = createCustomArr(createCustomArr(0, 3), 3)
-drawBoard(grid)
+gameBoard = Board()
+gameBoard.drawOnScreen()
+gameBoard.updateGrid([0,0], 'X')
