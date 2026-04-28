@@ -33,8 +33,7 @@ class Board:
   
   def updateGrid(self, position, newValue):
     self.grid[position[0]][position[1]] = newValue
-    
-    # cleanScreen()
+    cleanScreen()
     self.drawOnScreen()
 
 gameBoard = Board()
