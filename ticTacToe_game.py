@@ -13,29 +13,17 @@ Player Setup: Assign specific markers (e.g., 'X' and 'O') to two players and tra
 '''
 
 # IMPORTS
-import os
-from utilities.drawFn import drawBoard
-from utilities.arrFn import createCustomArr
+from models.PlayerClass import Player
+from models.customTypos import Symbol
+from models.BoardClass import Board
 
-def cleanScreen():
-  os.system('cls' if os.name == 'nt' else 'clear')
+player1 = Player(Symbol.X)
+player2 = Player(Symbol.O)
 
 
-class Board:
-  def __init__(self):
-    # Grid is an array of size 3 where each element is 
-    # an array of size 3 fill with 0's
-    grid = createCustomArr(createCustomArr(0 , 3), 3)
-    self.grid = grid
-  
-  def drawOnScreen(self):
-    drawBoard(self.grid)
-  
-  def updateGrid(self, position, newValue):
-    self.grid[position[0]][position[1]] = newValue
-    cleanScreen()
-    self.drawOnScreen()
-
-gameBoard = Board()
+gameBoard:Board = Board()
 gameBoard.drawOnScreen()
 gameBoard.updateGrid([0,0], 'X')
+gameBoard.updateGrid([1,1], 'O')
+
+print(player1.getData())
