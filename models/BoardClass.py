@@ -18,9 +18,7 @@ class Board:
     drawBoard(self.grid)
   
   def updateGrid(self, position: Position, newValue: Symbol):
-    if (self.grid[position[0]][position[1]] != VOID):
-      print('[SYSTEM]: INVALID MOVEMENT, A PLAYER HAS ALREADY TAKE THAT POSITION')
-      return False
+    if (self.grid[position[0]][position[1]] != VOID): return False
     
     self.grid[position[0]][position[1]] = newValue
     
@@ -29,8 +27,10 @@ class Board:
     self.currentMoves += 1
     
     if (self.currentMoves >= 3):
-      print(checkHorizontal(self.grid, position, newValue))
-      return
+      if (checkHorizontal(self.grid, position, newValue)):
+        self.gameStatus = Status.win
+    
+    return True
 
 
   def getData(self):
