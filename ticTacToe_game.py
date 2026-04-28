@@ -20,10 +20,11 @@ from models.BoardClass import Board
 player1 = Player(Symbol.X)
 player2 = Player(Symbol.O)
 
-
 gameBoard:Board = Board()
 gameBoard.drawOnScreen()
-gameBoard.updateGrid([0,0], 'X')
-gameBoard.updateGrid([1,1], 'O')
+gameBoard.updateGrid([0,0], player1.getSymbol())
+gameBoard.updateGrid([1,1], player2.getSymbol())
+gameBoard.updateGrid([0,1], player1.getSymbol())
+gameBoard.updateGrid([1,2], player1.getSymbol())
 
 print(player1.getData())

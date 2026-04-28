@@ -18,7 +18,10 @@ class Player:
   def getData(self):
     return {
       'Wins': self.wins,
-      "losses": self.losses,
+      "loses": self.losses,
       "gamesPlayed": self.gamesPlayed,
       "symbol": self.symbol
     }
+  
+  def getSymbol(self):
+    return self.symbol
