@@ -1,7 +1,7 @@
 from utilities.systemFn import cleanScreen
 from utilities.drawFn import drawBoard
 from utilities.arrFn import createCustomArr, deepCopy
-from utilities.checkSimilarities import checkHorizontal
+from utilities.checkSimilarities import checkAxis, checkDiagonal
 from models.customTypos import Status, Symbol, Position, BoardGrid
 
 VOID = ' '
@@ -33,32 +33,36 @@ class Board:
     self.currentMoves += 1
     
     if (self.currentMoves >= 3):
-      if (checkHorizontal(self.grid, position, newValue)):
+      args = [self.grid, position, newValue]
+
+      # check win conditions
+      # *args means unpacking the elements in list called args
+      if (checkDiagonal(*args) or checkAxis(*args)):
         self.gameStatus = Status.win
 
     if (self.currentMoves >= 9 and self.gameStatus == Status.playing):
       for element in self.grid:
         if VOID not in element: 
           self.gameStatus = Status.tie
-    
+
     return True
     
   def testTie(self):
     self.grid = [
       [Symbol.X,Symbol.X, Symbol.O],
       [Symbol.O,Symbol.O, Symbol.X,],
-      [Symbol.X, Symbol.O, VOID]
+      [Symbol.O, Symbol.O, VOID]
     ]
 
     self.currentMoves = 8
     
   def testWin(self):
     self.grid = [
-      [Symbol.X,Symbol.X, Symbol.X],
-      [Symbol.O,Symbol.O, Symbol.X,],
+      [Symbol.O,Symbol.X, VOID],
+      [VOID,Symbol.O, Symbol.X,],
       [Symbol.O, Symbol.O, VOID]
     ]
 
-    self.currentMoves = 8
+    self.currentMoves = 6
     
 
