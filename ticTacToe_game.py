@@ -16,10 +16,12 @@ Player Setup: Assign specific markers (e.g., 'X' and 'O') to two players and tra
 from models.PlayerClass import Player
 from models.customTypos import Symbol, Status, Position
 from models.BoardClass import Board
+from models.scoreboardClass import Scoreboard
 from utilities.systemFn import cleanScreen
 
-# Initialize gameBoard
+# Initialize
 gameBoard:Board = Board()
+score:Scoreboard = Scoreboard()
 
 # Defining player symbol
 userInput = ''
@@ -45,13 +47,9 @@ while ((currentTurn < 1 ) or (currentTurn > 2)):
   currentTurn = int(input('Select who start first[1 OR 2] : '))
 
 # Draw the board
+cleanScreen()
 gameBoard.drawOnScreen()
-
-scoreboard = {
-  'player1': 0,
-  'player2': 0,
-  'gamesPlayed': 0
-}
+print('\n')
 
 # Start bucle for the game
 # while (True):
@@ -94,6 +92,5 @@ while(gameBoard.gameStatus == Status.playing):
 
 print(f'[SYSTEM]: Player# {currentTurn} ({players[currentTurn-1].getSymbol()}) Wins!')
 
-print('SCOREBOARD:')
-scoreboard['gamesPlayed'] = players[currentTurn-1].gamesPlayed
-
+print('\n') 
+score.updateScoreboard(currentTurn)

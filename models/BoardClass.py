@@ -1,6 +1,7 @@
 from utilities.systemFn import cleanScreen
 from utilities.drawFn import drawBoard
 from utilities.arrFn import createCustomArr
+from utilities.checkSimilarities import checkHorizontal
 from models.customTypos import Status, Symbol, Position, BoardGrid
 
 VOID = ' '
@@ -29,6 +30,12 @@ class Board:
     if (self.currentMoves >= 3):
       if (checkHorizontal(self.grid, position, newValue)):
         self.gameStatus = Status.win
+
+    if (self.currentMoves >= 9):
+      for element in self.grid:
+        if VOID not in element: 
+          self.gameStatus = Status.tie
+          return False
     
     return True
 
@@ -39,19 +46,3 @@ class Board:
       'grid': self.grid
     }
   
-
-def checkHorizontal(arr: BoardGrid, lastPosition: Position, symbol: Symbol):
-  # Determine if position correspond to top, center or bottom
-  yPositionTocheck: Position = []
-  
-  if (lastPosition[1] == 1):
-    yPositionTocheck = [lastPosition[1] + 1, lastPosition[1] - 1]
-  elif (lastPosition[1] == 0):
-    yPositionTocheck = [lastPosition[1] + 1, lastPosition[1] + 2]
-  else:
-    yPositionTocheck = [lastPosition[1] - 1, lastPosition[1] - 2]
-
-  for y in yPositionTocheck:
-    if symbol != arr[lastPosition[0]][y]: return False
-  
-  return True

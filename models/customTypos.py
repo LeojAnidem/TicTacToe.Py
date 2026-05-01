@@ -22,5 +22,6 @@ class PosNum(IntEnum):
   TWO = 2
 
 type Position = tuple[PosNum, PosNum]
-type BoardElement = list[str | Symbol, str | Symbol, str | Symbol]
+type Element = str | Symbol
+type BoardElement = list[Element, Element, Element]
 type BoardGrid = list[BoardElement, BoardElement, BoardElement]
