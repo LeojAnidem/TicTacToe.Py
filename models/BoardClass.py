@@ -36,7 +36,7 @@ class Board:
       if (checkHorizontal(self.grid, position, newValue)):
         self.gameStatus = Status.win
 
-    if (self.currentMoves >= 9):
+    if (self.currentMoves >= 9 and self.gameStatus == Status.playing):
       for element in self.grid:
         if VOID not in element: 
           self.gameStatus = Status.tie
