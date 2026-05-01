@@ -15,7 +15,7 @@ class Scoreboard:
       return False
     
     if numPlayerWin == 1: self.player1Wins += 1
-    else: self.player2Wins += 1
+    if numPlayerWin == 2: self.player2Wins += 1
     
     self.gamesPlayed += 1
     self.drawOnScreen()
