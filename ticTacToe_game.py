@@ -47,7 +47,15 @@ while ((currentTurn < 1 ) or (currentTurn > 2)):
 # Draw the board
 gameBoard.drawOnScreen()
 
+scoreboard = {
+  'player1': 0,
+  'player2': 0,
+  'gamesPlayed': 0
+}
+
 # Start bucle for the game
+# while (True):
+
 while(gameBoard.gameStatus == Status.playing):
   position:Position = []
   print(f'[SYSTEM]: CURRENT TURN -> PLAYER #{currentTurn} ( {players[currentTurn-1].getSymbol()} )')
@@ -60,7 +68,7 @@ while(gameBoard.gameStatus == Status.playing):
     while (posInput < 0 or posInput > 2):
       posInput = int(input(f'[Player# {currentTurn}] Select {namePos} position by writen an number [0,1,2]: '))
     
-    position.append(posInput, )
+    position.append(posInput)
 
   # Summit position to grid and check is a valid position
   isValidPos = gameBoard.updateGrid(position, players[currentTurn-1].getSymbol())
@@ -72,5 +80,20 @@ while(gameBoard.gameStatus == Status.playing):
     print('[SYSTEM]: INVALID MOVEMENT, A PLAYER HAS ALREADY TAKE THAT POSITION')
     continue
 
+  if (gameBoard.gameStatus == Status.tie): break
+
+  if (gameBoard.gameStatus != Status.playing):
+    player: Player
+    for i, player in enumerate(players):
+      isWinner = True if (i == currentTurn - 1) else False
+      player.updateData(isWinner)
+    break
+      
   # If all ok, pass turn to next player
   currentTurn = 2 if currentTurn == 1 else 1
+
+print(f'[SYSTEM]: Player# {currentTurn} ({players[currentTurn-1].getSymbol()}) Wins!')
+
+print('SCOREBOARD:')
+scoreboard['gamesPlayed'] = players[currentTurn-1].gamesPlayed
+

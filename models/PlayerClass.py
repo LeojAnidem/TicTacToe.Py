@@ -23,5 +23,8 @@ class Player:
       "symbol": self.symbol
     }
   
+  def reset(self):
+    self.isWinner = False
+  
   def getSymbol(self):
     return self.symbol
